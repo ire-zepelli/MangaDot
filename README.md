@@ -1,6 +1,6 @@
 # MangaDot 
 
-Welcome to the MangaDot project! This project is designed to help you learn about APIs and backend development while building a manga reading and community platform similar to MangaDex.
+Welcome to the MangaDot project! This project is designed to help me learn about APIs and backend development while building a manga reading and community platform similar to MangaDex.
 
 ## Project Overview
 
