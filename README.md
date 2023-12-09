@@ -16,4 +16,4 @@ The goal of this project is to provide a hands-on learning experience in buildin
   - Explore a user-friendly search interface to discover manga titles based on various criteria.
 
 - **Front Page UI:**
-  - Navigate the front page to get a glimpse of featured manga titles and latest releases.
+  - Navigate the front page to get a glimpse of featured manga titles and latest releases.  
