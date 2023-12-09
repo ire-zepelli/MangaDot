@@ -4,7 +4,7 @@ Welcome to the MangaDot project! This project is designed to help me learn about
 
 ## Project Overview
 
-The goal of this project is to provide a hands-on learning experience in building a manga website with a strong focus on backend development and API integration. By the end of this project, you should gain insights into creating APIs, handling user authentication, managing databases, and providing a seamless frontend experience.
+The goal of this project is to provide a hands-on learning experience in building a manga website with a strong focus on backend development and API integration. By the end of this project, I should gain insights into creating APIs, handling user authentication, managing databases, and providing a seamless frontend experience.
 
 ## Technologies Used
 
