@@ -107,6 +107,9 @@ nav div{
     color: #000;
     margin: 0px;
 }
+#NotFound{
+    color: #000;
+}
 /* Misc */
 @keyframes fadeIn { 
     from { opacity: 0; } 
