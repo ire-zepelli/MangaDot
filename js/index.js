@@ -9,7 +9,7 @@ var searchData = "";
 var skeleton = `<div class="manga animate-flicker">
                     <img class="poster" src="assets/manga-content/image-placeholder.svg" alt="poster">
                 </div>`;
-var offset = 1;
+var offset = 0;
 
 //prints the skeleton loading screen
 for (let i = 0; i < 6; i++) {
@@ -17,7 +17,9 @@ for (let i = 0; i < 6; i++) {
 }
 
 //request data
-fetch(`https://api.mangadex.org/manga?limit=10&offset=${offset}&includes%5B%5D=cover_art`)
+fetch(
+  `https://api.mangadex.org/manga?limit=10&offset=${offset}&includes%5B%5D=cover_art`
+)
   .then((res) => res.json())
   .then((parsedRes) => {
     console.log(parsedRes);
@@ -80,7 +82,7 @@ fetch(`https://api.mangadex.org/manga?limit=10&offset=${offset}&includes%5B%5D=c
 //SEARCH EVENT
 searchBar.addEventListener("keydown", (event) => {
   if (event.key == "Enter") {
-    offset = 1;
+    offset = 0;
     show.style.display = "block";
     //updates the legend
     legend.innerHTML = `<p>Results for "${searchBar.value}"</p>`;
@@ -112,6 +114,11 @@ searchBar.addEventListener("keydown", (event) => {
         else {
           //clears container
           contentContainer.innerHTML = ``;
+
+          //if it returns data but less than 10
+          if (searchData.data.length < 10) {
+            show.style.display = "none";
+          }
 
           //iterates through the array of json
           for (let i = 0; i < 10; i++) {
@@ -167,62 +174,63 @@ searchBar.addEventListener("keydown", (event) => {
   }
 });
 
-show.addEventListener("click", ()=>{
-  offset+=10;
-  fetch(`https://api.mangadex.org/manga?limit=10&offset=${offset}&title=${encodedInput}&includes%5B%5D=cover_art`)
-  .then((res) => res.json())
-  .then(data => {
-    responseData = data;
+show.addEventListener("click", () => {
+  offset += 10;
+  fetch(
+    `https://api.mangadex.org/manga?limit=10&offset=${offset}&title=${encodedInput}&includes%5B%5D=cover_art`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      responseData = data;
 
-    if (responseData.data.length < 10) {
-      show.style.display = "none";
-    }
-    else{
-      show.style.display = "block";
-    }
+      if (responseData.data.length < 10) {
+        show.style.display = "none";
+      } else {
+        show.style.display = "block";
+      }
 
-    console.log("test");
-    console.log(responseData)
-        //iterates through the array of json
-        for (let i = 0; i < 10; i++) {
-          let object = responseData.data;
-    
-          //looks for english title
-          let title = object[i].attributes.title.en;
-          //if none, check for other languages
-          if (title == undefined) {
-            for (let property in object[i].attributes.title) {
-              title = object[i].attributes.title[property];
-            }
+      console.log("test");
+      console.log(responseData);
+      //iterates through the array of json
+      for (let i = 0; i < 10; i++) {
+        let object = responseData.data;
+
+        //looks for english title
+        let title = object[i].attributes.title.en;
+        //if none, check for other languages
+        if (title == undefined) {
+          for (let property in object[i].attributes.title) {
+            title = object[i].attributes.title[property];
           }
-    
-          //looks for english description
-          let description = object[i].attributes.description.en;
-          //if none, check for other languages
-          if (description == undefined) {
-            for (let property in object[i].attributes.description) {
-              description = object[i].attributes.description[property];
-            }
+        }
+
+        //looks for english description
+        let description = object[i].attributes.description.en;
+        //if none, check for other languages
+        if (description == undefined) {
+          for (let property in object[i].attributes.description) {
+            description = object[i].attributes.description[property];
           }
-          //handles cases where there is no description for a manga
-          if (description == undefined) {
-            description = "No Description";
+        }
+        //handles cases where there is no description for a manga
+        if (description == undefined) {
+          description = "No Description";
+        }
+
+        //looks for manga id
+        let mangaId = object[i].id;
+
+        //looks for file name
+        let fileName;
+        let length = object[i].relationships.length;
+        //iterates through the "type" to look for the "cover_art"
+        for (let j = 0; j < length; j++) {
+          if (object[i].relationships[j].type == "cover_art") {
+            fileName = object[i].relationships[j].attributes.fileName;
           }
-    
-          //looks for manga id
-          let mangaId = object[i].id;
-    
-          //looks for file name
-          let fileName;
-          let length = object[i].relationships.length;
-          //iterates through the "type" to look for the "cover_art"
-          for (let j = 0; j < length; j++) {
-            if (object[i].relationships[j].type == "cover_art") {
-              fileName = object[i].relationships[j].attributes.fileName;
-            }
-          }
-          //displays all the manga information
-          contentContainer.innerHTML += `<div class="manga">
+        }
+        //displays all the manga information
+        contentContainer.innerHTML += `<div class="manga">
                                               <img class="poster" src="https://uploads.mangadex.org/covers/${mangaId}/${fileName}" alt="poster">
                                               <div class="manga-description">
                                                   <p id="title" class="cool-text">${title}</p>
@@ -230,7 +238,7 @@ show.addEventListener("click", ()=>{
                                               </div>
                                             </div>
                                             `;
-        }
-  })
-  .catch(err => console.log(err));
+      }
+    })
+    .catch((err) => console.log(err));
 });
