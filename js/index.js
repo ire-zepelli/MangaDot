@@ -7,6 +7,8 @@ var searchData = "";
 var skeleton = `<div class="manga animate-flicker">
                     <img class="poster" src="assets/manga-content/image-placeholder.svg" alt="poster">
                 </div>`;
+
+
 //prints the skeleton loading screen
 for (let i = 0; i < 6; i++) {
   contentContainer.innerHTML += skeleton;
@@ -73,6 +75,7 @@ fetch("https://api.mangadex.org/manga?limit=10&includes%5B%5D=cover_art")
   })
   .catch((error) => console.error(error));
 
+
 //SEARCH EVENT
 searchBar.addEventListener("keydown", (event) => {
   if (event.key == "Enter") {
@@ -96,6 +99,7 @@ searchBar.addEventListener("keydown", (event) => {
       .then((res) => res.json())
       .then((data) => {
         searchData = data;
+        console.log(searchData);
         //if server returns an empty data, which means manga not found
         if (searchData.data.length == 0) {
           contentContainer.innerHTML = `<h1 id="notFound"> Manga Not Found </h1>`;
@@ -127,7 +131,7 @@ searchBar.addEventListener("keydown", (event) => {
               }
             }
             //handles cases where there is no description for a manga
-            if (description == undefined) {
+            if (description == undefined || description == '') {
               description = "No Description";
             }
 
