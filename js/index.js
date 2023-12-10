@@ -16,7 +16,7 @@ for (let i = 0; i < 6; i++) {
   contentContainer.innerHTML += skeleton;
 }
 
-//request data
+//request data to the server
 fetch(
   `https://api.mangadex.org/manga?limit=10&offset=${offset}&includes%5B%5D=cover_art`
 )
@@ -25,7 +25,7 @@ fetch(
     console.log(parsedRes);
     responseData = parsedRes;
 
-    //clears  the container
+    //clears the container
     contentContainer.innerHTML = ``;
 
     //iterates through the array of json
