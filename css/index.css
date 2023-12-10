@@ -60,6 +60,7 @@ nav div{
 }
 /* Content */
 #manga-content{
+    text-align: center;
     color: #fff;
     font-size: 20px;
     margin: 32px 63.5px;
@@ -109,6 +110,24 @@ nav div{
 }
 #notFound{
     color: #000;
+}
+#show-btn{
+    padding: 10px;
+    width: 100%;
+    background-color: #FF530D;
+    text-decoration: none;
+    border: none;
+    color: #fff;
+}
+#show-btn:hover{
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    background-color: #ca5020;
+    text-decoration: none;
+    border: none;
+    color: #fff;
+
 }
 /* Misc */
 @keyframes fadeIn { 
