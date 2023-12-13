@@ -80,19 +80,20 @@ nav div{
     gap: 12px;
 }
 .manga{
-    height: 140px;
+    height: auto;
     margin: 3px 0;
     gap: 10px;
     display: flex;
     padding: 5px;
-    width: 680px;
+    width: 100%;
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
     overflow: hidden;
-    cursor: pointer;
 }
 .poster{
-    max-height: 141px;
+    height: 500px;
+    max-height: 500px;
+
 }
 #description{
     font-size: 15px;
@@ -101,7 +102,7 @@ nav div{
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: 10px;
+    gap: 30px;
     align-items: start;
     overflow: hidden;
 }
@@ -109,26 +110,15 @@ nav div{
     color: #000;
     margin: 0px;
 }
-#notFound{
-    color: #000;
+#title{
+    font-size: 40px;
 }
-#show-btn{
-    padding: 10px;
-    width: 100%;
-    background-color: #FF530D;
-    text-decoration: none;
-    border: none;
-    color: #fff;
-}
-#show-btn:hover{
-    cursor: pointer;
-    padding: 10px;
-    width: 100%;
-    background-color: #ca5020;
-    text-decoration: none;
-    border: none;
-    color: #fff;
-
+#details{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    overflow: hidden;
 }
 /* Misc */
 @keyframes fadeIn { 

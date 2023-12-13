@@ -10,6 +10,8 @@ var skeleton = `<div class="manga animate-flicker">
                     <img class="poster" src="assets/manga-content/image-placeholder.svg" alt="poster">
                 </div>`;
 var offset = 0;
+var mangaIndex = 0;
+localStorage.clear();
 
 //prints the skeleton loading screen
 for (let i = 0; i < 6; i++) {
@@ -22,6 +24,7 @@ fetch(
 )
   .then((res) => res.json())
   .then((parsedRes) => {
+    localStorage.clear();
     console.log(parsedRes);
     responseData = parsedRes;
 
@@ -67,7 +70,7 @@ fetch(
         }
       }
       //displays all the manga information
-      contentContainer.innerHTML += `<div class="manga">
+      contentContainer.innerHTML += `<div class="manga" data-index=${mangaIndex}>
                                           <img class="poster" src="https://uploads.mangadex.org/covers/${mangaId}/${fileName}" alt="poster">
                                           <div class="manga-description">
                                               <p id="title" class="cool-text">${title}</p>
@@ -75,6 +78,7 @@ fetch(
                                           </div>
                                         </div>
                                         `;
+      mangaIndex++;
     }
   })
   .catch((error) => console.error(error));
@@ -242,3 +246,28 @@ show.addEventListener("click", () => {
     })
     .catch((err) => console.log(err));
 });
+
+document.addEventListener("click", (event) => {
+  var mangaElements = document.querySelectorAll(".manga");
+  mangaElements.forEach((manga) => {
+    manga.addEventListener("click", handleMangaClick);
+  });
+});
+
+function handleMangaClick(event) {
+  // Access the clicked element and its attributes
+  const clickedManga = event.currentTarget;
+  const mangaTitle = clickedManga.querySelector("#title").innerText;
+  const mangaDescription = clickedManga.querySelector("#description").innerText;
+  mangaIndex = clickedManga.dataset.index;
+
+  console.log(clickedManga);
+  console.log(`Clicked Manga: ${mangaTitle}`);
+  console.log(`index: ${mangaIndex}`);
+  let input = mangaTitle.toLowerCase();
+  //converts spaces to %20 and other characters..
+  input = encodeURI(input);
+  mangaTitle
+  localStorage.setItem('index',  input);
+  window.location = `http://localhost/manga-website/manga-details.html`;
+}
